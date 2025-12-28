@@ -1,6 +1,5 @@
-/* =========================
-   Type Checker Utility
-========================= */
+//    Type Checker Utility
+
 function typeOf(value) {
 
     if (value === null) {
