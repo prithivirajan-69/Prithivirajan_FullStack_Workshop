@@ -5,24 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Challenge_01</title>
 </head>
+
 <body>
-    <h2>Interactive Counter</h2>
 
-    <!-- Display Count -->
-    <h1 id="count">0</h1>
+    <!-- Header -->
+    <header>
+        <h2>Interactive Counter</h2>
+    </header>
 
-    <!-- Counter Buttons -->
-    <button id="decrement">-</button>
-    <button id="reset">Reset</button>
-    <button id="increment">+</button>
+    <!-- Main Content -->
+    <main>
 
-    <br><br>
+        <!-- Counter Display Section -->
+        <section aria-label="Counter display">
+            <h1 id="count">0</h1>
+        </section>
 
-    <!-- Step Selector -->
-    <p>Step:</p>
-    <button class="step" data-step="1">1</button>
-    <button class="step" data-step="5">5</button>
-    <button class="step" data-step="10">10</button>
+        <!-- Counter Controls -->
+        <section aria-label="Counter controls">
+            <button id="decrement">-</button>
+            <button id="reset">Reset</button>
+            <button id="increment">+</button>
+        </section>
+
+        <br><br>
+
+        <!-- Step Selector -->
+        <section aria-label="Step selector">
+            <p>Step:</p>
+            <button class="step" data-step="1">1</button>
+            <button class="step" data-step="5">5</button>
+            <button class="step" data-step="10">10</button>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>Challenge 01 – Interactive Counter</p>
+    </footer>
 
     <!-- JavaScript File -->
     <script src="./ch1.js"></script>

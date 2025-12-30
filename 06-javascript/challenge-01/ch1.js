@@ -11,7 +11,7 @@ const stepButtons = document.querySelectorAll(".step");
 
 // Function to update count display and color
 function updateDisplay() {
-    countDisplay.textContent = count;
+    countDisplay.textContent = `Count: ${count}`;
 
     if (count > 0) {
         countDisplay.style.color = "green";
@@ -45,7 +45,7 @@ resetBtn.addEventListener("click", () => {
 // Step selector buttons
 stepButtons.forEach(button => {
     button.addEventListener("click", () => {
-        step = Number(button.getAttribute("data-step"));
+        step = Number(button.dataset.step);
     });
 });
 

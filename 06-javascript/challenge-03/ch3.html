@@ -3,37 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Work Todo</title>
 </head>
+
 <body>
 
-<h2>Work Todo</h2>
+    <!-- Header -->
+    <header>
+        <h2>Work Todo</h2>
+    </header>
 
+    <!-- Main Content -->
+    <main>
 
-<input type="text" id="taskInput" placeholder="Add Task">
-<select id="categorySelect">
-    <option value="Work">Work</option>
-    <option value="Personal">Personal</option>
-</select>
-<button id="addBtn">Add</button>
+        <!-- Add Task Section -->
+        <section aria-label="Add todo task">
+            <input type="text" id="taskInput" placeholder="Add Task">
 
-<hr>
+            <select id="categorySelect">
+                <option value="Work">Work</option>
+                <option value="Personal">Personal</option>
+            </select>
 
+            <button id="addBtn">Add</button>
+        </section>
 
-<p>
-    Filter:
-    <button class="filter" data-filter="All">All</button>
-    <button class="filter" data-filter="Work">Work</button>
-    <button class="filter" data-filter="Personal">Personal</button>
-</p>
+        <hr>
 
+        <!-- Filter Section -->
+        <section aria-label="Filter tasks">
+            <p>
+                Filter:
+                <button class="filter" data-filter="All">All</button>
+                <button class="filter" data-filter="Work">Work</button>
+                <button class="filter" data-filter="Personal">Personal</button>
+            </p>
+        </section>
 
-<p id="countInfo"></p>
+        <!-- Count Info -->
+        <section aria-label="Task count">
+            <p id="countInfo"></p>
+        </section>
 
+        <!-- Todo List -->
+        <section aria-label="Todo list">
+            <ul id="todoList"></ul>
+        </section>
 
-<ul id="todoList"></ul>
+    </main>
 
-<script src="./ch3.js"></script>
+    <!-- Footer -->
+    <footer>
+        <p>Todo App – Challenge 03</p>
+    </footer>
+
+    <script src="./ch3.js"></script>
 
 </body>
 </html>

@@ -1,82 +1,78 @@
-//    Shopping Cart Object
+// Shopping Cart Factory (Modern JS)
 
-
-function createShoppingCart() {
-    var items = [];
-    var discount = 0;
+const createShoppingCart = () => {
+    let items = [];
+    let discount = 0;
 
     return {
 
-        addItem: function (item) {
-            for (var i = 0; i < items.length; i++) {
-                if (items[i].id === item.id) {
-                    items[i].quantity += item.quantity;
-                    return;
-                }
-            }
-            items.push(item);
-        },
+        // Add item (uses array method)
+        addItem: (item) => {
+            const existing = items.find(i => i.id === item.id);
 
-        getItems: function () {
-            return items;
-        },
-
-        updateQuantity: function (id, quantity) {
-            for (var i = 0; i < items.length; i++) {
-                if (items[i].id === id) {
-                    items[i].quantity = quantity;
-                }
+            if (existing) {
+                existing.quantity += item.quantity;
+            } else {
+                items.push({ ...item });
             }
         },
 
-        removeItem: function (id) {
-            var result = [];
-            for (var i = 0; i < items.length; i++) {
-                if (items[i].id !== id) {
-                    result.push(items[i]);
-                }
-            }
-            items = result;
+        // Get items
+        getItems: () => items,
+
+        // Update quantity
+        updateQuantity: (id, quantity) => {
+            items = items.map(item =>
+                item.id === id
+                    ? { ...item, quantity }
+                    : item
+            );
         },
 
-        getTotal: function () {
-            var total = 0;
-            for (var i = 0; i < items.length; i++) {
-                total += items[i].price * items[i].quantity;
-            }
+        // Remove item (filter)
+        removeItem: (id) => {
+            items = items.filter(item => item.id !== id);
+        },
+
+        // Calculate total (reduce + template literal)
+        getTotal: () => {
+            let total = items.reduce(
+                (sum, item) => sum + item.price * item.quantity,
+                0
+            );
+
             if (discount > 0) {
                 total -= total * discount / 100;
             }
-            return Number(total.toFixed(2));
+
+            return Number(`${total.toFixed(2)}`);
         },
 
-        getItemCount: function () {
-            var count = 0;
-            for (var i = 0; i < items.length; i++) {
-                count += items[i].quantity;
-            }
-            return count;
-        },
+        // Count items (reduce)
+        getItemCount: () =>
+            items.reduce((count, item) => count + item.quantity, 0),
 
-        isEmpty: function () {
-            return items.length === 0;
-        },
+        // Check empty
+        isEmpty: () => items.length === 0,
 
-        applyDiscount: function (code, percent) {
+        // Apply discount
+        applyDiscount: (code, percent) => {
             discount = percent;
+            console.log(`Discount applied: ${code} (${percent}%)`);
         },
 
-        clear: function () {
+        // Clear cart
+        clear: () => {
             items = [];
             discount = 0;
         }
     };
-}
+};
 
 
-//   Example Usage
 
-var cart = createShoppingCart();
+// Example Usage
+const cart = createShoppingCart();
 
 cart.addItem({ id: 1, name: "Laptop", price: 999, quantity: 1 });
 cart.addItem({ id: 2, name: "Mouse", price: 29, quantity: 2 });

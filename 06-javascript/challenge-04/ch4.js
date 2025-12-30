@@ -10,23 +10,22 @@ const tabContent = document.getElementById("tabContent");
 
 let activeIndex = 0;
 
-
-
-//   Create Tabs Dynamically
-
+// Create Tabs Dynamically
 function createTabs() {
     tabButtons.innerHTML = "";
 
     tabsData.forEach((tab, index) => {
         const btn = document.createElement("button");
-        btn.textContent = tab.title;
+
+        // ✅ Template literal used
+        btn.textContent = `${tab.title}`;
+
         btn.setAttribute("role", "tab");
         btn.setAttribute("tabindex", index === 0 ? "0" : "-1");
 
         if (index === 0) btn.classList.add("active");
 
         btn.addEventListener("click", () => setActiveTab(index));
-
         btn.addEventListener("keydown", (e) => handleKeyNavigation(e, index));
 
         tabButtons.appendChild(btn);
@@ -35,9 +34,7 @@ function createTabs() {
     showContent(0);
 }
 
-
-//    Set Active Tab
-
+// Set Active Tab
 function setActiveTab(index) {
     const buttons = tabButtons.querySelectorAll("button");
 
@@ -51,17 +48,13 @@ function setActiveTab(index) {
     buttons[index].focus();
 }
 
-
-//    Show Tab Content
-
-
+// Show Tab Content
 function showContent(index) {
-    tabContent.textContent = tabsData[index].content;
+    // ✅ Template literal used
+    tabContent.textContent = `${tabsData[index].content}`;
 }
 
-
-//    Keyboard Navigation
-
+// Keyboard Navigation
 function handleKeyNavigation(event, index) {
     if (event.key === "ArrowRight") {
         const next = (index + 1) % tabsData.length;
@@ -74,7 +67,5 @@ function handleKeyNavigation(event, index) {
     }
 }
 
-
-//    Initial Load
-
+// Initial Load
 createTabs();

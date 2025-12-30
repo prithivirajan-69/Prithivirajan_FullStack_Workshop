@@ -1,85 +1,85 @@
-function validatePassword(password) {
+// Password Validator (Modern JS)
+
+const validatePassword = (password) => {
   const errors = [];
   const suggestions = [];
   let score = 0;
 
   const commonPasswords = ["password", "123456", "qwerty", "admin", "letmein"];
 
-  // Rule: Minimum length
-  if (password.length < 8) {
-    errors.push("Too short");
-    suggestions.push("Use at least 8 characters");
-  } else {
-    score += 20;
-  }
+  // Validation rules (array-driven)
+  const rules = [
+    {
+      check: pwd => pwd.length >= 8,
+      error: `Too short`,
+      suggestion: `Use at least 8 characters`,
+      score: 20
+    },
+    {
+      check: pwd => /[A-Z]/.test(pwd),
+      error: `Missing uppercase letter`,
+      suggestion: `Add an uppercase letter`,
+      score: 15
+    },
+    {
+      check: pwd => /[a-z]/.test(pwd),
+      error: `Missing lowercase letter`,
+      suggestion: `Add a lowercase letter`,
+      score: 15
+    },
+    {
+      check: pwd => /[0-9]/.test(pwd),
+      error: `Missing number`,
+      suggestion: `Add a number`,
+      score: 15
+    },
+    {
+      check: pwd => /[!@#$%^&*()_+\-=]/.test(pwd),
+      error: `Missing special character`,
+      suggestion: `Add a special character`,
+      score: 15
+    }
+  ];
 
-  // Rule: Uppercase letter
-  if (!/[A-Z]/.test(password)) {
-    errors.push("Missing uppercase letter");
-    suggestions.push("Add an uppercase letter");
-  } else {
-    score += 15;
-  }
+  // Apply rules using array method
+  rules.forEach(rule => {
+    if (rule.check(password)) {
+      score += rule.score;
+    } else {
+      errors.push(rule.error);
+      suggestions.push(rule.suggestion);
+    }
+  });
 
-  // Rule: Lowercase letter
-  if (!/[a-z]/.test(password)) {
-    errors.push("Missing lowercase letter");
-    suggestions.push("Add a lowercase letter");
-  } else {
-    score += 15;
-  }
-
-  // Rule: Number
-  if (!/[0-9]/.test(password)) {
-    errors.push("Missing number");
-    suggestions.push("Add a number");
-  } else {
-    score += 15;
-  }
-
-  // Rule: Special character
-  if (!/[!@#$%^&*()_+\-=]/.test(password)) {
-    errors.push("Missing special character");
-    suggestions.push("Add a special character");
-  } else {
-    score += 15;
-  }
-
-  // Rule: Common password
-  if (commonPasswords.includes(password.toLowerCase())) {
-    errors.push("Common password");
-    suggestions.push("Avoid common passwords");
+  // Common password check
+  if (commonPasswords.some(pwd => pwd === password.toLowerCase())) {
+    errors.push(`Common password`);
+    suggestions.push(`Avoid common passwords`);
     score -= 30;
   } else {
     score += 20;
   }
 
-  // Limit score between 0 and 100
+  // Clamp score between 0–100
   score = Math.max(0, Math.min(100, score));
 
   return {
     isValid: errors.length === 0,
-    score: score,
-    errors: errors,
-    suggestions: suggestions
+    score: Number(`${score}`),
+    errors,
+    suggestions
   };
-}
+};
 
-//    Button Handler
-
-function checkPassword() {
+// Button Handler (Arrow Function)
+const checkPassword = () => {
   const pwd = document.getElementById("password").value;
   const result = validatePassword(pwd);
 
   document.getElementById("output").textContent =
-    JSON.stringify(result, null, 2);
-}
+    `${JSON.stringify(result, null, 2)}`;
+};
 
-
-//    Test Cases (As Required)
-
+// Test Cases
 console.log(validatePassword("abc"));
-// { isValid: false, score: 15, errors: [...], suggestions: [...] }
-
 console.log(validatePassword("MyP@ssw0rd!2024"));
-// { isValid: true, score: ~95, errors: [], suggestions: [] }

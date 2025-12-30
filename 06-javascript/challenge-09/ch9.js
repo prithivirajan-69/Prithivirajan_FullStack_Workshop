@@ -1,48 +1,28 @@
-//    Type Checker Utility
+// Type Checker Utility (Modern JS)
 
 function typeOf(value) {
 
-    if (value === null) {
-        return "null";
-    }
+    // Primitive & special cases
+    if (value === null) return `null`;
+    if (value === undefined) return `undefined`;
+    if (Number.isNaN(value)) return `nan`;
 
-    if (value === undefined) {
-        return "undefined";
-    }
+    // Instance checks using array method
+    const instanceTypes = [
+        { type: `array`, check: Array.isArray },
+        { type: `date`, check: v => v instanceof Date },
+        { type: `map`, check: v => v instanceof Map },
+        { type: `set`, check: v => v instanceof Set },
+        { type: `regexp`, check: v => v instanceof RegExp },
+        { type: `error`, check: v => v instanceof Error },
+        { type: `promise`, check: v => v instanceof Promise }
+    ];
 
-    if (Number.isNaN(value)) {
-        return "nan";
-    }
+    const matched = instanceTypes.find(item => item.check(value));
+    if (matched) return `${matched.type}`;
 
-    if (Array.isArray(value)) {
-        return "array";
-    }
-
-    if (value instanceof Date) {
-        return "date";
-    }
-
-    if (value instanceof Map) {
-        return "map";
-    }
-
-    if (value instanceof Set) {
-        return "set";
-    }
-
-    if (value instanceof RegExp) {
-        return "regexp";
-    }
-
-    if (value instanceof Error) {
-        return "error";
-    }
-
-    if (value instanceof Promise) {
-        return "promise";
-    }
-
-    return typeof value;
+    // Fallback to JS typeof
+    return `${typeof value}`;
 }
 
 /* =========================
@@ -57,7 +37,7 @@ console.log(typeOf(true));                 // "boolean"
 console.log(typeOf(Symbol()));             // "symbol"
 console.log(typeOf([]));                   // "array"
 console.log(typeOf({}));                   // "object"
-console.log(typeOf(() => {}));              // "function"
+console.log(typeOf(() => {}));             // "function"
 console.log(typeOf(new Date()));            // "date"
 console.log(typeOf(new Map()));             // "map"
 console.log(typeOf(new Set()));             // "set"

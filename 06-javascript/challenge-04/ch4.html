@@ -5,15 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tab Component</title>
 </head>
+
 <body>
-    <h2>Reusable Tab Component</h2>
 
-<!-- Tabs Container -->
-<div id="tabs">
-    <div id="tabButtons" role="tablist"></div>
-    <div id="tabContent"></div>
-</div>
+    <!-- Header -->
+    <header>
+        <h2>Reusable Tab Component</h2>
+    </header>
 
-<script src="./ch4.js"></script>
+    <!-- Main Content -->
+    <main>
+
+        <!-- Tabs Container -->
+        <section id="tabs">
+
+            <!-- Tab Buttons (Navigation) -->
+            <nav id="tabButtons" role="tablist" aria-label="Tab navigation"></nav>
+
+            <!-- Tab Content -->
+            <section id="tabContent" aria-label="Tab content"></section>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>Challenge 04 – Reusable Tabs</p>
+    </footer>
+
+    <script src="./ch4.js"></script>
+
 </body>
 </html>
